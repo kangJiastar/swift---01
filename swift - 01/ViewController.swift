@@ -257,6 +257,7 @@ class ViewController: UIViewController {
         
         //2.等价于"===”表示两个类类型(class type)的常量或者变量引用同一个类实例。
         
+      
         
         println(someResulution.width)
         
@@ -265,15 +266,61 @@ class ViewController: UIViewController {
             var age = 18
             var height = 1.78
             var mRes = Resulotion()
+            
+            func realWork(){
+                println("nothing")
+                
+
+            }
+            
+            func realCan(num1:String , num2:String){
+                println(num1 + num2)
+            }
+            
+            func realSecond(#num1:String , _ num2:String){
+                println(num1 + num2)
+            }
+            
+            class func nslogClass() {
+                println(__FUNCTION__)
+            }
         }
         
         let somePerson =  Person()
         
         println(somePerson.age)
         
+        somePerson.realWork()
         
+        somePerson.realCan("every", num2: "thing")
+        
+        somePerson.realSecond(num1: "try", "again")
+        
+        Person.nslogClass()
+        
+        /**
+        *  方法
+        */
+        //1.实例方法,实例方法是属于某个特定类、结构体或者枚举类型实例的方法。<实例方法就是定义在类、结构体或者枚举的内部,只有对应的对象才可以调用的方法>
+        //2.类型方法<近似于类方法>
+        
+        //3.构造器
+        /*
+        构造器用于创建某个类型的一个新实例。尽管构造器并不是方法,但在语法上,两者很相似。构造器的工作是准备新实例以供使用,并确保实例中的所有属性都拥有有效的初始化值。
+        构造器的最简单形式就像一个没有参数的实例方法,使用 init 关键字:
+         init() {
+            // 执行构造过程
+          }
+        */
+        
+        //4.重写(Overriding)<重写父类方法>
+        
+        //￼5.可以通过把方法,属性或附属脚本标记为 final 来防止它们被重写,只需要在声明关键字 前加上@final 特性.关键字 class 前添加@final 特性(@final class)来将整个类标记为 final 的,这样的类是不可被继承的,否则会报编译错误。
+        
+        //6.只要在构造过程结束前常量的值能确定,你可以在构造过程中的任意时间点修改常量属性的值。
     }
-  
+    
+   
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         println(__FUNCTION__)
         
