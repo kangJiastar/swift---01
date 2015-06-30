@@ -119,6 +119,7 @@ class ViewController: UIViewController {
         */
         //1.数组定义,不同于OC可以是任何类型,不一定是对象类型.但必须明确元素类型
         var dmArray : [String] = ["kangHU","jia","xing"]
+
         var threeDouble = [Double](count: 3, repeatedValue: 0.0)
         
         println(dmArray.first)
@@ -318,22 +319,141 @@ class ViewController: UIViewController {
         //￼5.可以通过把方法,属性或附属脚本标记为 final 来防止它们被重写,只需要在声明关键字 前加上@final 特性.关键字 class 前添加@final 特性(@final class)来将整个类标记为 final 的,这样的类是不可被继承的,否则会报编译错误。
         
         //6.只要在构造过程结束前常量的值能确定,你可以在构造过程中的任意时间点修改常量属性的值。
+        
+        /**
+        ARC实践
+        */
+        /*
+        1.弱引用/无主引用
+         (1)用感叹号(!)来展开并访问可选类型的变量,只有这样这些变量才能被赋值
+         (2)对于生命周期中引用会变为 nil 的实例,使用弱引用;对于初始化时赋值之后引用再也不会赋值为nil的实例,使用无主引用。
+         (3)注意:弱引用只能声明为变量类型,因为运行时它的值可能改变。弱引用绝对不能声明为常量。
+        */
+        
+        
+        /**
+        泛型
+        */
+        
+        var m1 = 10
+        var n1 = 20
+        func swapTwoInts(inout a : Int, inout b : Int){
+            println(a)
+            let temp = a
+            a = b
+            b = temp
+            
+            println(a)
+        }
+        swapTwoInts(&m1, &n1)
+        
+        var str1 = "123"
+        var str2 = "456"
+        func swapTwoAny<T>(inout a : T, inout b : T){
+            println(a)
+            let temp = a
+            a = b
+            b = temp
+            
+            println(a)
+        }
+        swapTwoAny(&str1 , &str2)
+        swap(&str2, &str1)
+        //1.注意:请始终使用大写字母开头的驼峰式命名法(例如 T 和 KeyType)来给类型参数命 名,以表明它们是类型的占位符,而非类型值。
+        //2.注意:栈的概念已被 UINavigationController 类使用来模拟试图控制器的导航结构。你通过调用 UINavigationController 的 pushViewController:animated:方法来为导航栈添加 (add)新的试图控制器;而通过 popViewControllerAnimated:的方法来从导航栈中移除 (pop)某个试图控制器。每当你需要一个严格的后进先出方式来管理集合,堆栈都是最实用的模型。
+        
+       //利用泛型栈进行数据写入/删除
+        var newStack = AnyStack<String>()
+        newStack.push("kang")
+        newStack.push("jia")
+        newStack.push("xing")
+        newStack.pop()
+        newStack.log()
+        
+        //查找一个字符串数组,某个字符串的位置
+        func findStringIndex (mrray :[String],str : String) -> Int?{
+            for (index,value) in enumerate(mrray){
+                if value == str{
+                    return index
+                }
+            }
+            return nil;
+        }
+        let strings = ["cat","dog","tigger"];
+        if let foundIndex = findStringIndex(strings, "dog"){
+            println(foundIndex)
+        }
+        //查找一个泛型<Equatable>数组,某个字符串的位置
+        func findAnyIndex<T:Equatable> (mrray : [T],str : T) -> Int?{
+            
+            for(index,value) in enumerate(mrray){
+                
+                if value == str{
+                    
+                    return index
+                }
+            }
+            
+            return nil;
+            
+        }
+        
+        if let anyFoundIndex = findAnyIndex(strings, "tigger"){
+            println(anyFoundIndex)
+        }
+        
     }
-    
    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         println(__FUNCTION__)
-        
-        
-        
+
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
         println(__FUNCTION__)
     }
-    
 
 
 }
 
+//协议
+//1.遵守协议者,必须拥有协议的成员
+protocol SomePro {
+    
+    // 协议内容
+    var age : Int {get}
+    var height : Double {get set}
+    class var name : String {get set}
+    
+}
+
+protocol aa{
+    var mAge : String {get set}
+}
+
+//普通的栈存储/移除
+struct intStack{
+    var items = [Int]()
+    mutating func push(item : Int){
+        items.append(item)
+    }
+    mutating func pop() -> Int{
+        return items.removeLast()
+    }
+}
+
+
+//泛型结构体定义  ??问题,不能定义到ViewDidLod里面
+struct AnyStack<T> {
+    var items = [T]()
+    mutating func push(item: T) {
+        items.append(item)
+    }
+    mutating func pop() -> T {
+        return items.removeLast()
+    }
+    func log() {
+        println(items)
+    }
+}
 
