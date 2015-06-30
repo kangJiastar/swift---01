@@ -258,8 +258,6 @@ class ViewController: UIViewController {
         
         //2.等价于"===”表示两个类类型(class type)的常量或者变量引用同一个类实例。
         
-      
-        
         println(someResulution.width)
         
         
@@ -270,8 +268,6 @@ class ViewController: UIViewController {
             
             func realWork(){
                 println("nothing")
-                
-
             }
             
             func realCan(num1:String , num2:String){
@@ -402,11 +398,13 @@ class ViewController: UIViewController {
             println(anyFoundIndex)
         }
         
+      
     }
    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         println(__FUNCTION__)
-
+        
+       
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
@@ -430,6 +428,8 @@ protocol SomePro {
 protocol aa{
     var mAge : String {get set}
 }
+
+
 
 //普通的栈存储/移除
 struct intStack{
@@ -456,4 +456,5 @@ struct AnyStack<T> {
         println(items)
     }
 }
+
 
